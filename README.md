@@ -11,3 +11,4 @@ Kumpulan script files untuk menjalankan HMTK Openquake dan pyGMT
 1. Buka Anaconda Prompt
 2. Aktifkan pygmt environment: `conda activate pygmt`
 3. Install jupyter: `pip install jupyter`
+4. Aktivasi kernel: `python -m ipykernel install --name "gmt" --display-name "pyGMT"`
