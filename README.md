@@ -1,5 +1,5 @@
 # Seismologi-Teknik-OQ
-Kumpulan script files untuk menjalankan HMTK Openquake dan pyGMT
+Kumpulan script files untuk menjalankan HMTK Openquake dan pyGMT (atau Geopandas)
 
 # Hal yang perlu di install
 ## Openquake
