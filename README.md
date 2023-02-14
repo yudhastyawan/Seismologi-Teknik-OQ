@@ -1,8 +1,8 @@
 # Seismologi-Teknik-OQ
 Kumpulan script files untuk menjalankan HMTK Openquake dan pyGMT (atau Geopandas)
 
-# Hal yang perlu di install
-## Openquake
+## Hal yang perlu di install
+### Openquake
 Openquake dapat diunduh di sini:
 https://downloads.openquake.org/pkgs/windows/oq-engine/OpenQuake_Engine_3.11.5-1.exe
 
@@ -24,18 +24,18 @@ atau
 
 `"C:\Program Files\Openquake Engine\python3.6\Scripts\jupyter-notebook.exe"`
 
-## Miniconda
+### Miniconda
 Miniconda dapat diunduh di sini:
 https://docs.conda.io/en/latest/miniconda.html
 
-## PyGMT
+### PyGMT
 1. Buka Anaconda Prompt
 2. Buat environment pyGMT: `conda create --name pygmt --channel conda-forge pygmt`
 3. Aktifkan environment `maps`: `conda activate pygmt`
 4. Install `ipykernel`: `pip install ipykernel`
 5. Daftarkan ke dalam kernel: `python -m ipykernel install --name "gmt" --display-name "pyGMT"`
 
-## Geopandas
+### Geopandas
 1. Buka Anaconda Prompt
 2. Buat environment baru: `conda create -n maps python=3.9`
 3. Aktifkan environment `maps`: `conda activate maps`
@@ -44,7 +44,7 @@ https://docs.conda.io/en/latest/miniconda.html
 6. Install `ipykernel`: `pip install ipykernel`
 7. Daftarkan ke dalam kernel: `python -m ipykernel install --name "maps" --display-name "maps"`
 
-# Cara menggunakan files yang ada di github ini
+## Cara menggunakan files yang ada di github ini
 1. Download files di github ini dengan cara tekan tombol **Code -> Download ZIP**.
 2. Ekstrak filenya dan tempatkan folder hasil ekstrak di tempat yang diinginkan.
 3. Copy direktori/path folder tersebut, contoh: `C:\Users\USERNAME\Documents\Seismologi-Teknik-OQ-main`
