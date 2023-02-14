@@ -1,5 +1,6 @@
 *.pkl
-output/
+shp_output/
+figs/
 
 # Created by 
 https://www.toptal.com/developers/gitignore/api/jupyternotebooks

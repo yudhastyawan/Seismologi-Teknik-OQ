@@ -14,6 +14,7 @@ jika tidak maka ubah lokasi tersebut sesuai dengan komputer masing-masing)
 1. Buka Command Prompt
 2. Install `utm`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install utm`
 3. Install `jupyter`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install jupyter`
+4. Daftarkan ke dalam kernel (opsional): `python -m ipykernel install --name "openquake" --display-name "openquake"`
 
 
 Untuk uji coba, jalankan salah satu baris di bawah ini:
@@ -44,6 +45,8 @@ https://docs.conda.io/en/latest/miniconda.html
 6. Install `ipykernel`: `pip install ipykernel`
 7. Daftarkan ke dalam kernel: `python -m ipykernel install --name "maps" --display-name "maps"`
 
+Data yang disimpan dalam format shp saat menggunakan Geopandas dapat digunakan di **QGIS**
+
 ## Cara menggunakan files yang ada di github ini
 1. Download files di github ini dengan cara tekan tombol **Code -> Download ZIP**.
 2. Ekstrak filenya dan tempatkan folder hasil ekstrak di tempat yang diinginkan.
@@ -51,3 +54,17 @@ https://docs.conda.io/en/latest/miniconda.html
 4. Buka Command Prompt
 5. Masuk ke direktori tersebut di Command Prompt: `cd C:\Users\USERNAME\Documents\Seismologi-Teknik-OQ-main`
 6. Lalu jalankan jupyter notebook: `"C:\Program Files\Openquake Engine\python3.6\Scripts\jupyter.exe" notebook`
+
+## Notebook sebelum revisi
+Notebook sebelum direvisi dapat dilihat di folder **old**.
+
+## Notebook vs. Kernel
+| Notebook             | Kernel    |
+|----------------------|-----------|
+| OQ001_mengestimasi_area_katalog        | maps |
+| OQ002_declustering        | openquake |
+| OQ-processing_deprecated        | openquake |
+| OQ-visuals-geopandas_deprecated | maps      |
+| OQ-visual-pygmt_deprecated      | pyGMT     |
+| old/OQ-processing        | openquake |
+| old/OQ-visuals           | pyGMT     |
