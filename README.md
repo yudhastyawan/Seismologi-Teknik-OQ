@@ -63,8 +63,8 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 |----------------------|-----------|
 | OQ001_mengestimasi_area_katalog        | maps |
 | OQ002_declustering        | openquake |
-| OQ-processing_deprecated        | openquake |
-| OQ-visuals-geopandas_deprecated | maps      |
-| OQ-visual-pygmt_deprecated      | pyGMT     |
+| deprecated_OQ-processing        | openquake |
+| deprecated_OQ-visuals-geopandas | maps      |
+| deprecated_OQ-visual-pygmt      | pyGMT     |
 | old/OQ-processing        | openquake |
 | old/OQ-visuals           | pyGMT     |
