@@ -61,8 +61,14 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 ## Notebook vs. Kernel
 | Notebook             | Kernel    |
 |----------------------|-----------|
-| OQ001_mengestimasi_area_katalog        | maps |
-| OQ002_declustering        | openquake |
+| OQ001_mengestimasi_area_katalog.ipynb        | maps |
+| OQ002_declustering.ipynb        | openquake |
+| OQ003_geometri_sumber_gempa.ipynb        | maps |
+| OQ004_pemisahan_katalog_sumber_gempa.ipynb        | openquake |
+| OQ005_visualisasi.ipynb        | maps |
+| OQ006_menghindari_double_counting.ipynb        | openquake |
+| OQ007_simpan_katalog_ke_shp.ipynb        | maps |
+| OQ008_a_b_value.ipynb        | openquake |
 | deprecated_OQ-processing        | openquake |
 | deprecated_OQ-visuals-geopandas | maps      |
 | deprecated_OQ-visual-pygmt      | pyGMT     |
