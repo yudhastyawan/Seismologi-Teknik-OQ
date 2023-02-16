@@ -54,6 +54,7 @@ Data yang disimpan dalam format shp saat menggunakan Geopandas dapat digunakan d
 4. Buka Command Prompt
 5. Masuk ke direktori tersebut di Command Prompt: `cd C:\Users\USERNAME\Documents\Seismologi-Teknik-OQ-main`
 6. Lalu jalankan jupyter notebook: `"C:\Program Files\Openquake Engine\python3.6\Scripts\jupyter.exe" notebook`
+7. template notebook dapat menggunakan: `Template_openquake.ipynb` dan `Template_maps.ipynb` tergantung spesifik kernel
 
 ## Notebook sebelum revisi
 Notebook sebelum direvisi dapat dilihat di folder **old**.
@@ -68,7 +69,8 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 | OQ005_visualisasi.ipynb        | maps |
 | OQ006_menghindari_double_counting.ipynb        | openquake |
 | OQ007_simpan_katalog_ke_shp.ipynb        | maps |
-| OQ008_a_b_value.ipynb        | openquake |
+| OQ008_visualisasi.ipynb        | maps |
+| OQ009_a_b_value.ipynb        | openquake |
 | deprecated_OQ-processing        | openquake |
 | deprecated_OQ-visuals-geopandas | maps      |
 | deprecated_OQ-visual-pygmt      | pyGMT     |

@@ -88,3 +88,31 @@ def create_megathrust_coords(gdf_megathrusts, idcs, upper_configs=None, upper_de
             }
         megathrusts.append(megathrust)
     return megathrusts
+
+def quick_create_map(list_shp_geometry, list_color_shp_geometry, list_label_shp_geometry,
+                    list_catalogue, list_color_catalogue, list_label_catalogue, map_limit, ax=None, figsize=(8,8)):
+    if ax == None:
+        fig, ax = plt.subplots(figsize=figsize)
+    
+    lines = []
+    for filename, color, label in zip(list_shp_geometry, list_color_shp_geometry, list_label_shp_geometry):
+        gdf = gpd.read_file(filename)
+        gdf.plot(color=color[0], edgecolor=color[1], linewidth=1, ax=ax, label=label)
+        lines += [Line2D([0], [0], linestyle="none", marker="s", markersize=10, 
+           markeredgecolor=color[1], markerfacecolor=color[0])]
+    
+    for filename, color, label in zip(list_catalogue, list_color_catalogue, list_label_catalogue):
+        dict_catalogue = open_pkl(filename)
+        ax.scatter(dict_catalogue['longitude'], 
+           dict_catalogue['latitude'], 
+           c=color[0], s=5, edgecolors=color[1], linewidths=0.5, 
+           label=label)
+        lines += [Line2D([0], [0], linestyle="none", marker="s", markersize=10, 
+           markeredgecolor=color[1], markerfacecolor=color[0])]
+
+    labels = list_label_shp_geometry + list_label_catalogue
+    ax.legend(lines, labels, ncols=3)
+    ax.set_ylim(map_limit[0])
+    ax.set_xlim(map_limit[1])
+    plt.show()
+    return fig, ax
