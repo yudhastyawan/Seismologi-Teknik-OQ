@@ -11,9 +11,12 @@ def get_cmap(n, name='jet'):
     return plt.cm.get_cmap(name, n)
 
 # save variabel ke pickle file untuk dibuka kembali di file lain
-def variable_to_pkl(variabel, filename):
+def variable_to_pkl(variabel, filename, protocol=False):
     with open(filename, 'wb') as file:
-        pickle.dump(variabel, file, pickle.HIGHEST_PROTOCOL)
+        if protocol==True:
+            pickle.dump(variabel, file, pickle.HIGHEST_PROTOCOL)
+        else:
+            pickle.dump(variabel, file)
         
 # membuka pickle file
 def open_pkl(filename):

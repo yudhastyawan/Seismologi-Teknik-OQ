@@ -20,6 +20,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
 import pickle
+import pyproj
 
 # membuat colormap diskrit
 def get_cmap(n, name='jet'):
@@ -39,9 +40,12 @@ def catalogue_to_dict(catalogue):
     return dict_catalogue
             
 # save variabel ke pickle file untuk dibuka kembali di file lain
-def variable_to_pkl(variabel, filename):
+def variable_to_pkl(variabel, filename, protocol=False):
     with open(filename, 'wb') as file:
-        pickle.dump(variabel, file, pickle.HIGHEST_PROTOCOL)            
+        if protocol==True:
+            pickle.dump(variabel, file, pickle.HIGHEST_PROTOCOL)
+        else:
+            pickle.dump(variabel, file)          
 
 # save katalog ke pickle file
 def catalogue_to_pkl(catalogue, filename):
@@ -55,7 +59,28 @@ def open_pkl(filename):
     return variabel
 
 # fungsi untuk mengubah data lon lat pada patahan menjadi poligon
-def polygon_from_fault(fault_longitude, fault_latitude, distance=20):
+def polygon_from_fault(fault_longitude, fault_latitude, distance=20, inProj="EPSG:4326", outProj="EPSG:3857"):
+    distance = distance * 1000
+    degree_proj = pyproj.Proj(init=inProj)
+    utm_proj = pyproj.Proj(init=outProj)
+    
+    faultLine_degree = LineString([(x, y) for x, y in zip(fault_longitude, fault_latitude)])
+    project = pyproj.Transformer.from_proj(
+        degree_proj,
+        utm_proj)
+    
+    faultLine_utm = transform(project.transform, faultLine_degree)
+    dilated = faultLine_utm.buffer(distance)
+    
+    project = pyproj.Transformer.from_proj(
+        utm_proj,
+        degree_proj)
+    
+    dilated_degree = transform(project.transform, dilated)
+    x, y = dilated_degree.exterior.xy
+    return x, y    
+
+def polygon_from_fault_deprecated(fault_longitude, fault_latitude, distance=20):
     distance = distance * 1000
     fault1_utm = utm.from_latlon(np.array(fault_latitude), np.array(fault_longitude))
     input_for_faultLine1 = np.array([fault1_utm[0], fault1_utm[1]]).T.tolist()
