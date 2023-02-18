@@ -1,3 +1,4 @@
+import openquake
 from openquake.hmtk.parsers.catalogue import *
 from openquake.hmtk.plotting.seismicity.catalogue_plots import *
 from openquake.hmtk.seismicity.declusterer.dec_gardner_knopoff import *
@@ -65,30 +66,46 @@ def polygon_from_fault(fault_longitude, fault_latitude, distance=20, inProj="EPS
     utm_proj = pyproj.Proj(init=outProj)
     
     faultLine_degree = LineString([(x, y) for x, y in zip(fault_longitude, fault_latitude)])
-    project = pyproj.Transformer.from_proj(
-        degree_proj,
-        utm_proj)
-    
-    faultLine_utm = transform(project.transform, faultLine_degree)
+    project = lambda x, y: pyproj.transform(degree_proj, utm_proj, x, y)    
+    faultLine_utm = transform(project, faultLine_degree)
+
     dilated = faultLine_utm.buffer(distance)
     
-    project = pyproj.Transformer.from_proj(
-        utm_proj,
-        degree_proj)
-    
-    dilated_degree = transform(project.transform, dilated)
+    project = lambda x, y: pyproj.transform(utm_proj, degree_proj, x, y) 
+    dilated_degree = transform(project, dilated)
     x, y = dilated_degree.exterior.xy
     return x, y    
 
-def polygon_from_fault_deprecated(fault_longitude, fault_latitude, distance=20):
-    distance = distance * 1000
-    fault1_utm = utm.from_latlon(np.array(fault_latitude), np.array(fault_longitude))
-    input_for_faultLine1 = np.array([fault1_utm[0], fault1_utm[1]]).T.tolist()
-    faultLine1 = LineString(input_for_faultLine1)
-    dilated = faultLine1.buffer(distance)
-    dilated_x, dilated_y = dilated.exterior.xy
-    res_lat, res_lon = utm.to_latlon(np.array(dilated_x.tolist()), np.array(dilated_y.tolist()), fault1_utm[2], fault1_utm[3])
-    return res_lon, res_lat
+# def polygon_from_fault_deprecated_2(fault_longitude, fault_latitude, distance=20, inProj="EPSG:4326", outProj="EPSG:3857"):
+#     distance = distance * 1000
+#     degree_proj = pyproj.Proj(init=inProj)
+#     utm_proj = pyproj.Proj(init=outProj)
+    
+#     faultLine_degree = LineString([(x, y) for x, y in zip(fault_longitude, fault_latitude)])
+#     project = pyproj.Transformer.from_proj(
+#         degree_proj,
+#         utm_proj)
+    
+#     faultLine_utm = transform(project.transform, faultLine_degree)
+#     dilated = faultLine_utm.buffer(distance)
+    
+#     project = pyproj.Transformer.from_proj(
+#         utm_proj,
+#         degree_proj)
+    
+#     dilated_degree = transform(project.transform, dilated)
+#     x, y = dilated_degree.exterior.xy
+#     return x, y    
+
+# def polygon_from_fault_deprecated(fault_longitude, fault_latitude, distance=20):
+#     distance = distance * 1000
+#     fault1_utm = utm.from_latlon(np.array(fault_latitude), np.array(fault_longitude))
+#     input_for_faultLine1 = np.array([fault1_utm[0], fault1_utm[1]]).T.tolist()
+#     faultLine1 = LineString(input_for_faultLine1)
+#     dilated = faultLine1.buffer(distance)
+#     dilated_x, dilated_y = dilated.exterior.xy
+#     res_lat, res_lon = utm.to_latlon(np.array(dilated_x.tolist()), np.array(dilated_y.tolist()), fault1_utm[2], fault1_utm[3])
+#     return res_lon, res_lat
 
 # polygon coords to shapely polygon
 def poly_to_shapelypoly(poly):
@@ -188,10 +205,13 @@ def create_catalogue_from_shallow_backgrounds(catalogue, shallow_background_geom
     ]
     return catalogue_shallow_backgrounds
 
-def magnitude_of_completeness(catalogue, comp_config, mag_range=[3., 5.]):
+def magnitude_of_completeness(catalogue, comp_config, mag_range=None):
     completeness_algorithm = Stepp1971()
     old = completeness_algorithm.completeness(catalogue, comp_config)
-    completeness_algorithm.simplify(mag_range=[3., 5.])
+    if mag_range == None:
+        completeness_algorithm.simplify()
+    else:
+        completeness_algorithm.simplify(mag_range=mag_range)
     completeness_table = completeness_algorithm.completeness_table
     return completeness_table, old
 
@@ -226,3 +246,58 @@ def remove_events_in_A_from_B(catalogue_A, catalogue_B):
     print("jumlah gempa yang dihapus: ", double_counting)
     catalogue_C = selector1.select_catalogue(flags)
     return catalogue_C
+
+def quick_map(var, color, label=None, ax=None):
+    if isinstance(var, PolyOQ):
+        x, y = map(list, zip(*var.coords))
+        ax.plot(x, y, c=color[0], label=label)
+    elif isinstance(var, dict):
+        if len(set(var.keys()).intersection(set(["merged", "individual"]))) != 0:
+            chk = 0
+            if var["merged"] != None:
+                for item in var["merged"]:
+                    quick_map(item, color, label=(label if chk == 0 else None), ax=ax)
+                    chk += 1
+            if var["individual"] != None:
+                for item in var["individual"]:
+                    quick_map(item, color, label=(label if chk == 0 else None), ax=ax)
+                    chk += 1
+        if len(set(var.keys()).intersection(set(["upper", "lower"]))) != 0:
+            tmp1 = deepcopy(var["lower"])
+            tmp1.reverse()
+            tmp = var["upper"] + tmp1
+            item = PolyOQ([PointOQ(xyz[0], xyz[1]) for xyz in tmp])
+            quick_map(item, color, label=label, ax=ax)
+    elif isinstance(var, list):
+        if isinstance(var[0], dict):
+            for i, item in enumerate(var):
+                quick_map(item, color, label=(label if i == 0 else None), ax=ax)
+        elif isinstance(var[0], tuple):
+            if len(var[0]) == 3:
+                x, y, z = map(list, zip(*var))
+            elif len(var[0]) == 2:
+                x, y = map(list, zip(*var))
+            quick_map([x, y], color, label=label, ax=ax)
+        elif isinstance(var[0][0], list):
+            for i, item in enumerate(var):
+                quick_map(item, color, label=(label if i == 0 else None), ax=ax)
+        elif isinstance(var[0][0], float):
+            ax.plot(var[0], var[1], c=color[0], label=label)
+    elif isinstance(var, Catalogue):
+        ax.scatter(var["longitude"], var["latitude"], c=color[0], label=label)
+
+def quick_create_maps(list_variables, list_colors, list_labels, map_limit=None, ax=None, figsize=(8,8)):
+    fig = None
+    if ax == None:
+        fig, ax = plt.subplots(figsize=figsize)
+    
+    if list_variables != None:
+        for var, color, label in zip(list_variables, list_colors, list_labels):
+            quick_map(var, color, label, ax=ax)
+
+    ax.legend(ncol=3)
+    if map_limit != None:
+        ax.set_ylim(map_limit[0])
+        ax.set_xlim(map_limit[1])
+    plt.show()
+    return (fig, ax)
