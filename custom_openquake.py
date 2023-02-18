@@ -16,7 +16,6 @@ from openquake.hazardlib.geo.surface.complex_fault import ComplexFaultSurface
 from shapely.geometry import *
 from shapely.ops import *
 import os
-import utm
 import numpy as np
 import matplotlib.pyplot as plt
 from copy import deepcopy
@@ -204,6 +203,23 @@ def create_catalogue_from_shallow_backgrounds(catalogue, shallow_background_geom
         copy_cutPoly_cutDepth(catalogue, poly, lower_depth) for poly in poly_shallow_background
     ]
     return catalogue_shallow_backgrounds
+
+def create_catalogue_from_deep_backgrounds(catalogue, deep_background_geoms, 
+                                           upper_depth=50, increment=100, lower_depth=350):
+    range_list = list(range(upper_depth, lower_depth, increment)) + [lower_depth]
+    
+    poly_background = [
+        PolyOQ([PointOQ(lon, lat) for lon, lat in zip(*geom)]) for geom in deep_background_geoms
+    ]
+    
+    catalogue_backgrounds = [
+        [
+            copy_cutPoly_cutDepth(catalogue, poly, 
+                                  lower_depth = range_list[i+1], upper_depth = range_list[i]
+                                 ) for i in range(len(range_list)-1)
+        ] for poly in poly_background
+    ]
+    return catalogue_backgrounds, range_list
 
 def magnitude_of_completeness(catalogue, comp_config, mag_range=None):
     completeness_algorithm = Stepp1971()

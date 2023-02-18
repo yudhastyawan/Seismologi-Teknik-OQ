@@ -12,9 +12,8 @@ Install beberapa tambahan packages di openquake:
 jika tidak maka ubah lokasi tersebut sesuai dengan komputer masing-masing)
 
 1. Buka Command Prompt
-2. Install `utm`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install utm`
-3. Install `jupyter`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install jupyter`
-4. Daftarkan ke dalam kernel (opsional): `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m ipykernel install --name "openquake" --display-name "openquake"`
+2. Install `jupyter`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install jupyter`
+3. Daftarkan ke dalam kernel (opsional): `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m ipykernel install --name "openquake" --display-name "openquake"`
 
 
 Untuk uji coba, jalankan salah satu baris di bawah ini:
