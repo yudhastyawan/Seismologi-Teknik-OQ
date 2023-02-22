@@ -1,4 +1,6 @@
 *.pkl
+*.csv
+!katalog-ISC-1964-2021.csv
 shp_output/
 figs/
 __pycache__/
