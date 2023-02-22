@@ -70,8 +70,8 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 | OQ007_simpan_katalog_ke_shp.ipynb        | maps |
 | OQ008_visualisasi.ipynb        | maps |
 | OQ009_a_b_value.ipynb        | openquake |
-| deprecated_OQ-processing        | openquake |
-| deprecated_OQ-visuals-geopandas | maps      |
-| deprecated_OQ-visual-pygmt      | pyGMT     |
+| old/deprecated_OQ-processing        | openquake |
+| old/deprecated_OQ-visuals-geopandas | maps      |
+| old/deprecated_OQ-visual-pygmt      | pyGMT     |
 | old/OQ-processing        | openquake |
 | old/OQ-visuals           | pyGMT     |
