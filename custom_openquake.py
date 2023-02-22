@@ -44,6 +44,19 @@ def catalogue_to_dict(catalogue):
         else:
             dict_catalogue[idx] = catalogue[idx].tolist()
     return dict_catalogue
+
+def catalogue_from_pkl(filename):
+    dict_catalogue = open_pkl(filename)
+    catalogue = Catalogue.make_from_dict(dict_catalogue)
+    for key in catalogue.data.keys():
+        if catalogue.data[key] != []:
+            if isinstance(catalogue.data[key][0], int) or isinstance(catalogue.data[key][0], float):
+                catalogue.data[key] = np.array(catalogue.data[key])
+    return catalogue
+
+def catalogue_pkl_to_csv(filename_pkl, filename_csv):
+    catalogue = catalogue_from_pkl(filename_pkl)
+    catalogue.write_catalogue(filename_csv, key_list=list(catalogue.data.keys()))
             
 # save variabel ke pickle file untuk dibuka kembali di file lain
 def variable_to_pkl(variabel, filename, protocol=False):
@@ -237,13 +250,18 @@ def catalogue_declustering(catalogue, declust_config):
 def create_catalogue_megathrusts(catalogue, megathrust_geoms, distance = 20, mesh_spacing=10.):
     catalogue_megathrusts = []
     for geom in megathrust_geoms:
-        geom["upper"].sort(reverse=True, key=lambda x: x[0])
-        geom["lower"].sort(reverse=True, key=lambda x: x[0])
-        edges = [
-            LineOQ([PointOQ(*coord) for coord in geom["upper"]]),
-            LineOQ([PointOQ(*coord) for coord in geom["lower"]])
-        ]
-        megathrustOQ = ComplexFaultSurface.from_fault_data(edges, mesh_spacing=mesh_spacing)
+        for tf, idx in zip([True, True, False, False],[1,0,1,0]):
+            try:
+                geom["upper"].sort(reverse=tf, key=lambda x: x[idx])
+                geom["lower"].sort(reverse=tf, key=lambda x: x[idx])
+                edges = [
+                    LineOQ([PointOQ(*coord) for coord in geom["upper"]]),
+                    LineOQ([PointOQ(*coord) for coord in geom["lower"]])
+                ]
+                megathrustOQ = ComplexFaultSurface.from_fault_data(edges, mesh_spacing=mesh_spacing)
+                break
+            except:
+                pass
         selector2 = CatalogueSelector(catalogue, create_copy = True)
         catalogue_megathrust = selector2.within_rupture_distance(megathrustOQ, distance=distance)
         catalogue_megathrusts.append(catalogue_megathrust)

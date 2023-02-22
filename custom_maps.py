@@ -88,33 +88,36 @@ def polygon_to_shp(polygon, filename):
     gdf = gpd.GeoDataFrame(index=[0], crs='epsg:4326', geometry=[polygon])
     save_to_output_dir(gdf, filename)
 
-def check_megathrust_delimiter(gdf_megathrusts, idx=0, delimiter_number=4, ax=None):
+def check_megathrust_delimiter(gdf_megathrusts, idx=0, delimiter_number=4, ax=None, map_limit=None, skipped_indices = [1, None]):
     if ax == None:
         fig, ax = plt.subplots(figsize=(8,8))
     x, y = gdf_megathrusts.geometry[idx].exterior.coords.xy
     print(f"memilih {delimiter_number} dari {list(range(len(x)))}")
-    ax.plot(x[1:delimiter_number], y[1:delimiter_number], c='b', label='b')
-    ax.plot(x[delimiter_number::], y[delimiter_number::], c='r', label='r')
+    k, l = skipped_indices
+    ax.plot(x[k:delimiter_number], y[k:delimiter_number], c='b', label='b')
+    ax.plot(x[delimiter_number:l], y[delimiter_number:l], c='r', label='r')
 
     ax.legend()
-    ax.set_ylim((-9, -2))
-    ax.set_xlim((100, 110))
+    if map_limit != None:
+        ax.set_ylim(map_limit[0])
+        ax.set_xlim(map_limit[1])
     plt.show()
 
-def create_megathrust_coords(gdf_megathrusts, idcs, upper_configs=None, upper_depth=0, lower_depth=50):
+def create_megathrust_coords(gdf_megathrusts, idcs, skipped_indices, upper_configs=None, upper_depth=0, lower_depth=50):
     megathrusts = []
-    for i, (idx, upper_config) in enumerate(zip(idcs, upper_configs)):
+    for i, (idx, upper_config, indices) in enumerate(zip(idcs, upper_configs, skipped_indices)):
         x, y = gdf_megathrusts.geometry[i].exterior.coords.xy
+        k, l = indices
         megathrust = None
         if upper_config == 'r':
             megathrust = {
-                "upper": [(xi, yi, upper_depth) for xi, yi in zip(x[idx::], y[idx::])],
-                "lower": [(xi, yi, lower_depth) for xi, yi in zip(x[1:idx], y[1:idx])]
+                "upper": [(xi, yi, upper_depth) for xi, yi in zip(x[idx:l], y[idx:l])],
+                "lower": [(xi, yi, lower_depth) for xi, yi in zip(x[k:idx], y[k:idx])]
             }
         else:
             megathrust = {
-                "lower": [(xi, yi, lower_depth) for xi, yi in zip(x[idx::], y[idx::])],
-                "upper": [(xi, yi, upper_depth) for xi, yi in zip(x[1:idx], y[1:idx])]
+                "lower": [(xi, yi, lower_depth) for xi, yi in zip(x[idx:l], y[idx:l])],
+                "upper": [(xi, yi, upper_depth) for xi, yi in zip(x[k:idx], y[k:idx])]
             }
         megathrusts.append(megathrust)
     return megathrusts
