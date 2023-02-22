@@ -6,6 +6,7 @@ from shapely.geometry import Point, LineString, Polygon
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import glob
 
 def get_cmap(n, name='jet'):
     return plt.cm.get_cmap(name, n)
@@ -19,13 +20,38 @@ def variable_to_pkl(variabel, filename, protocol=False):
             pickle.dump(variabel, file)
         
 # membuka pickle file
-def open_pkl(filename):
-    with open(filename, 'rb') as file:
-        variabel = pickle.load(file)
-    return variabel
+def open_pkl(filename, recursive=False):
+    if recursive == False:
+        with open(filename, 'rb') as file:
+            variable = pickle.load(file)
+    else:
+        list_variables = glob.glob(filename)
+        variable = [open_pkl(var) for var in list_variables]
+    return variable
+
+def list_filenames(filename):
+    list_variables = glob.glob(filename)
+    return list_variables
+
+def duplicate_var(var, multiplier):
+    res = [var]*multiplier
+    return res
+
+def random_colors(fill = None, edge = None, name='jet', n = 1):
+    color = []
+    if (fill == None) and (edge == None):
+        tmp = get_cmap(n*2, name)
+        color = [[tmp(i), tmp(i+n)] for i in range(n)]
+    elif fill == None:
+        tmp = get_cmap(n, name)
+        color = [[tmp(i), edge] for i in range(n)]
+    elif edge == None:
+        tmp = get_cmap(n, name)
+        color = [[fill, tmp(i)] for i in range(n)]
+    return color
         
 # menyeleksi patahan merged atau individual
-def select_faults(gdf, dict_config):
+def select_faults(gdf, dict_config, dict_name="Segment__1"):
     faults = dict()
     faults["merged"] = None
     faults["individual"] = None
@@ -45,7 +71,8 @@ def select_faults(gdf, dict_config):
                 geom.coords.xy[0].tolist(), geom.coords.xy[1].tolist()
             ] for geom in gdf_ind.geometry
         ]
-    return faults
+    dict_config["name"] = gdf[dict_name].tolist()
+    return faults, dict_config
 
 def save_to_output_dir(gdf, name_file):
     savedir = os.path.join(os.getcwd(), 'shp_output', name_file.split('.')[0])
@@ -94,7 +121,7 @@ def create_megathrust_coords(gdf_megathrusts, idcs, upper_configs=None, upper_de
 
 def quick_create_map(list_shp_geometry=None, list_color_shp_geometry=None, list_label_shp_geometry=None,
                     list_catalogue=None, list_color_catalogue=None, list_label_catalogue=None, map_limit=None, ax=None, 
-                     figsize=(8,8)):
+                     figsize=(8,8), markersize=5):
     if ax == None:
         fig, ax = plt.subplots(figsize=figsize)
     
@@ -114,7 +141,7 @@ def quick_create_map(list_shp_geometry=None, list_color_shp_geometry=None, list_
             dict_catalogue = open_pkl(filename)
             ax.scatter(dict_catalogue['longitude'], 
                dict_catalogue['latitude'], 
-               c=color[0], s=5, edgecolors=color[1], linewidths=0.5, 
+               c=color[0], s=markersize, edgecolors=color[1], linewidths=0.5, 
                label=label)
             lines += [Line2D([0], [0], linestyle="none", marker="s", markersize=10, 
                markeredgecolor=color[1], markerfacecolor=color[0])]
@@ -126,3 +153,14 @@ def quick_create_map(list_shp_geometry=None, list_color_shp_geometry=None, list_
         ax.set_xlim(map_limit[1])
     plt.show()
     return fig, ax
+
+def geoms_to_shp(geoms, filename=None, dict_faults=None, range_deep=None, type_of=None):
+    if type_of == "area fault":
+        if dict_faults["merged"] != None:
+            for idcs, geom in zip(dict_faults["merged"], geoms["merged"]):
+                poly = Polygon(geom)
+                polygon_to_shp(poly, "area_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".shp")
+        if dict_faults["individual"] != None:
+            for idx, geom in zip(dict_faults["individual"], geoms["individual"]):
+                poly = Polygon(geom)
+                polygon_to_shp(poly, "area_fault_"+dict_faults["name"][idx]+".shp")

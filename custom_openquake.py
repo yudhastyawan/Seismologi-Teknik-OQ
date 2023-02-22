@@ -1,5 +1,6 @@
 import openquake
 from openquake.hmtk.parsers.catalogue import *
+from openquake.hmtk.seismicity.catalogue import *
 from openquake.hmtk.plotting.seismicity.catalogue_plots import *
 from openquake.hmtk.seismicity.declusterer.dec_gardner_knopoff import *
 from openquake.hmtk.seismicity.declusterer.distance_time_windows import *
@@ -21,10 +22,15 @@ import matplotlib.pyplot as plt
 from copy import deepcopy
 import pickle
 import pyproj
+import array
 
 # membuat colormap diskrit
 def get_cmap(n, name='jet'):
     return plt.cm.get_cmap(name, n)
+
+def duplicate_var(var, multiplier):
+    res = [var]*multiplier
+    return res
 
 def catalogue_to_dict(catalogue):
     idcs = ['eventID','year','month','day','hour',
@@ -48,15 +54,62 @@ def variable_to_pkl(variabel, filename, protocol=False):
             pickle.dump(variabel, file)          
 
 # save katalog ke pickle file
-def catalogue_to_pkl(catalogue, filename):
-    dict_catalogue = catalogue_to_dict(catalogue)
-    variable_to_pkl(dict_catalogue, filename)
+def catalogue_to_pkl(catalogue, filename=None, dict_faults=None, range_deep=None, type_of=None):
+    if type_of == "fault":
+        if dict_faults["merged"] != None:
+            for idcs, cat in zip(dict_faults["merged"], catalogue["merged"]):
+                catalogue_to_pkl(cat, "dict_catalogue_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".pkl")
+        if dict_faults["individual"] != None:
+            for idx, cat in zip(dict_faults["individual"], catalogue["individual"]):
+                catalogue_to_pkl(cat, "dict_catalogue_fault_"+dict_faults["name"][idx]+".pkl")
+    elif type_of == "megathrust":
+        for i, cat in enumerate(catalogue):
+            catalogue_to_pkl(cat, f"dict_catalogue_megathrust_{i+1}.pkl")
+    elif type_of == "shallow background":
+        for i, cat in enumerate(catalogue):
+            catalogue_to_pkl(cat, f"dict_catalogue_shallow_background_{i+1}.pkl")
+    elif type_of == "deep background":
+        for i, cat in enumerate(catalogue):
+            for j in range(len(range_deep)-1):
+                catalogue_to_pkl(
+                    cat[j], f"dict_catalogue_deep_background_{i+1}_{range_deep[j]}-{range_deep[j+1]}.pkl"
+                )
+    elif type_of == None:
+        dict_catalogue = catalogue_to_dict(catalogue)
+        variable_to_pkl(dict_catalogue, filename)
+    else:
+        print("type_of harus berada di antara berikut ini:")
+        print("['fault', 'megathrust', 'shallow background', 'deep background', None]")
 
+# def catalogue_faults_to_pkl(catalogue, dict_faults):
+#     if dict_faults["merged"] != None:
+#         for idcs, cat in zip(dict_faults["merged"], catalogue["merged"]):
+#             catalogue_to_pkl(cat, "dict_catalogue_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".pkl")
+#     if dict_faults["individual"] != None:
+#         for idx, cat in zip(dict_faults["individual"], catalogue["individual"]):
+#             catalogue_to_pkl(cat, "dict_catalogue_fault_"+dict_faults["name"][idx]+".pkl")
+
+# def catalogue_megathrusts_to_pkl(catalogue):
+#     for i, cat in enumerate(catalogue):
+#         catalogue_to_pkl(cat, f"dict_catalogue_megathrust_{i+1}.pkl")
+
+# def catalogue_deep_background_to_pkl(catalogue):
+#     for i, cat in enumerate(catalogue):
+#         catalogue_to_pkl(cat, f"dict_catalogue_deep_background_{i+1}.pkl")
+
+# def catalogue_shallow_background_to_pkl(catalogue):
+#     for i, cat in enumerate(catalogue):
+#         catalogue_to_pkl(cat, f"dict_catalogue_shallow_background_{i+1}.pkl")
+        
 # membuka pickle file
-def open_pkl(filename):
-    with open(filename, 'rb') as file:
-        variabel = pickle.load(file)
-    return variabel
+def open_pkl(filename, recursive=False):
+    if recursive == False:
+        with open(filename, 'rb') as file:
+            variable = pickle.load(file)
+    else:
+        list_variables = glob.glob(filename)
+        variable = [open_pkl(var) for var in list_variables]
+    return variable
 
 # fungsi untuk mengubah data lon lat pada patahan menjadi poligon
 def polygon_from_fault(fault_longitude, fault_latitude, distance=20, inProj="EPSG:4326", outProj="EPSG:3857"):
@@ -151,23 +204,25 @@ def create_area_faults(faults, distance=20):
     return area_faults, area_faults_coords
 
 # membuat katalog dari area fault
-def create_catalogue_from_area_faults(catalogue, area_faults, depth=20):
-    catalogue_area_faults = {"depth": depth, "merged": None, "individual": None}
+def create_catalogue_from_area_faults(catalogue, area_faults, dict_faults=None):
+    catalogue_area_faults = {"merged": None, "individual": None}
+    catalogue_area_faults["merged_depth"] = dict_faults["merged_depth"]
+    catalogue_area_faults["individual_depth"] = dict_faults["individual_depth"]
 
     if area_faults["merged"] != None:
         catalogue_area_faults["merged"] = [
             copy_cutPoly_cutDepth
             (
-                catalogue, selected_area, catalogue_area_faults["depth"]
-            ) for selected_area in area_faults["merged"]
+                catalogue, selected_area, selected_depth
+            ) for selected_area, selected_depth in zip(area_faults["merged"], dict_faults["merged_depth"])
         ]
 
     if area_faults["individual"] != None:
         catalogue_area_faults["individual"] = [
             copy_cutPoly_cutDepth
             (
-                catalogue, selected_area, catalogue_area_faults["depth"]
-            ) for selected_area in area_faults["individual"]
+                catalogue, selected_area, selected_depth
+            ) for selected_area, selected_depth in zip(area_faults["individual"], dict_faults["merged_depth"])
         ]
     return catalogue_area_faults
 
@@ -288,6 +343,12 @@ def quick_map(var, color, label=None, ax=None):
         if isinstance(var[0], dict):
             for i, item in enumerate(var):
                 quick_map(item, color, label=(label if i == 0 else None), ax=ax)
+        elif isinstance(var[0][0], array.array):
+            for i, item in enumerate(var):
+                quick_map(PolyOQ([PointOQ(x, y) for x, y in zip(*item)]), color, label=(label if i == 0 else None), ax=ax)
+        elif isinstance(var[0][0], Catalogue):
+            for i, item in enumerate(var):
+                quick_map(item, color, label=(label if i == 0 else None), ax=ax)
         elif isinstance(var[0], tuple):
             if len(var[0]) == 3:
                 x, y, z = map(list, zip(*var))
@@ -317,3 +378,10 @@ def quick_create_maps(list_variables, list_colors, list_labels, map_limit=None, 
         ax.set_xlim(map_limit[1])
     plt.show()
     return (fig, ax)
+
+# TO DO LIST
+# dict_catalogue = open_pkl('dict_catalogue_declustered.pkl')
+# cat = Catalogue.make_from_dict(dict_catalogue)
+# cat.write_catalogue('catalogue_declustered_1.csv', key_list=list(dict_catalogue.keys()))
+# catalogue_declustered.write_catalogue('catalogue_declustered_2.csv', key_list=list(dict_catalogue.keys()))
+# print(cat)
