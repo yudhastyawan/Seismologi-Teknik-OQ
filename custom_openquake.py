@@ -71,7 +71,8 @@ def catalogue_to_pkl(catalogue, filename=None, dict_faults=None, range_deep=None
     if type_of == "fault":
         if dict_faults["merged"] != None:
             for idcs, cat in zip(dict_faults["merged"], catalogue["merged"]):
-                catalogue_to_pkl(cat, "dict_catalogue_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".pkl")
+#                 catalogue_to_pkl(cat, "dict_catalogue_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".pkl")
+                catalogue_to_pkl(cat, "dict_catalogue_fault_"+"_".join([dict_faults["name"][idcs[0]], "others"])+".pkl")
         if dict_faults["individual"] != None:
             for idx, cat in zip(dict_faults["individual"], catalogue["individual"]):
                 catalogue_to_pkl(cat, "dict_catalogue_fault_"+dict_faults["name"][idx]+".pkl")
@@ -205,6 +206,17 @@ def create_area_faults(faults, distance=20):
             ] for selected in polygon_faults
         ]
         merged_shapely = [unary_union(selected) for selected in shapelypolygon_faults]
+        for i, selected in enumerate(merged_shapely):
+            tmp_selected = selected
+            buff = 0.1
+            check_multi = False
+            while isinstance(tmp_selected, MultiPolygon):
+                list_selected = list(selected)
+                unary_selected = unary_union([sel.buffer(buff) for sel in list_selected])
+                tmp_selected = unary_selected.buffer(-buff)
+                buff += 0.1
+                check_multi = True
+            if check_multi == True: merged_shapely[i] = tmp_selected
         area_faults["merged"] = [shapely_to_OQ_poly(selected) for selected in merged_shapely]
         area_faults_coords["merged"] = [selected.coords for selected in area_faults["merged"]]
     if faults["individual"] != None:
