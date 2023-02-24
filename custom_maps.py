@@ -162,7 +162,8 @@ def geoms_to_shp(geoms, filename=None, dict_faults=None, range_deep=None, type_o
         if dict_faults["merged"] != None:
             for idcs, geom in zip(dict_faults["merged"], geoms["merged"]):
                 poly = Polygon(geom)
-                polygon_to_shp(poly, "area_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".shp")
+#                 polygon_to_shp(poly, "area_fault_"+"_".join([dict_faults["name"][i] for i in idcs])+".shp")
+                polygon_to_shp(poly, "area_fault_"+"_".join([dict_faults["name"][idcs[0]], "others"])+".shp")
         if dict_faults["individual"] != None:
             for idx, geom in zip(dict_faults["individual"], geoms["individual"]):
                 poly = Polygon(geom)
