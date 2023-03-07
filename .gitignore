@@ -1,7 +1,10 @@
 *.pkl
 *.csv
 !katalog-ISC-1964-2021.csv
+!geologi-patahan.csv
 shp_output/
+json_output/
+xmlfiles/
 figs/
 __pycache__/
 

@@ -14,6 +14,15 @@ from openquake.hmtk.plotting.seismicity.completeness.plot_stepp_1972 import crea
 from openquake.hmtk.seismicity.smoothing.smoothed_seismicity import SmoothedSeismicity
 from openquake.hmtk.seismicity.smoothing.kernels.isotropic_gaussian import IsotropicGaussian
 from openquake.hazardlib.geo.surface.complex_fault import ComplexFaultSurface
+from openquake.hmtk.sources.area_source import mtkAreaSource
+from openquake.hmtk.sources.simple_fault_source import mtkSimpleFaultSource
+from openquake.hmtk.sources.complex_fault_source import mtkComplexFaultSource
+from openquake.hazardlib.mfd.truncated_gr import TruncatedGRMFD
+from openquake.hazardlib.pmf import PMF
+from openquake.hazardlib.geo.nodalplane import NodalPlane
+from openquake.hazardlib.tom import PoissonTOM
+from openquake.hmtk.sources.source_model import mtkSourceModel
+from openquake.hazardlib.sourcewriter import write_source_model
 from shapely.geometry import *
 from shapely.ops import *
 import os
@@ -23,6 +32,46 @@ from copy import deepcopy
 import pickle
 import pyproj
 import array
+import sys
+import shutil
+import stat
+import glob
+
+sys.path.insert(0, './SHERIFS')
+from SHERIFS import SHERIFS
+
+# folder penyimpanan
+dir_figs = os.path.join(os.getcwd(), 'figs')
+os.makedirs(dir_figs, exist_ok=True)
+
+dir_json = os.path.join(os.getcwd(), 'xmlfiles')
+os.makedirs(dir_json, exist_ok=True)
+
+def copytree(src, dst, symlinks = False, ignore = None):
+    if not os.path.exists(dst):
+        os.makedirs(dst)
+        shutil.copystat(src, dst)
+    lst = os.listdir(src)
+    if ignore:
+        excl = ignore(src, lst)
+        lst = [x for x in lst if x not in excl]
+    for item in lst:
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if symlinks and os.path.islink(s):
+            if os.path.lexists(d):
+                os.remove(d)
+            os.symlink(os.readlink(s), d)
+            try:
+                st = os.lstat(s)
+                mode = stat.S_IMODE(st.st_mode)
+                os.lchmod(d, mode)
+            except:
+                pass # lchmod not available
+        elif os.path.isdir(s):
+            copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
 
 # membuat colormap diskrit
 def get_cmap(n, name='jet'):
@@ -408,6 +457,79 @@ def quick_create_maps(list_variables, list_colors, list_labels, map_limit=None, 
         ax.set_xlim(map_limit[1])
     plt.show()
     return (fig, ax)
+
+def geoms_to_polyOQ(filename, type_of=None):
+    geoms = open_pkl(filename)
+    if type_of == "fault":
+        line = [LineOQ([PointOQ(x, y) for x, y in zip(*geom)]) for geom in geoms['individual']]
+        return line
+    if type_of == "megathrust":
+        megathrust = []
+        for geom in geoms:
+            megathrust.append(
+                [
+                    LineOQ([PointOQ(*coord) for coord in geom["upper"]]),
+                    LineOQ([PointOQ(*coord) for coord in geom["lower"]])
+                ]
+            )
+        return megathrust
+    if type_of == "shallow_background":
+        poly = [PolyOQ([PointOQ(x, y) for x, y in zip(*geom)]) for geom in geoms]
+        return poly
+    if type_of == "deep_background":
+        poly = [PolyOQ([PointOQ(x, y) for x, y in zip(*geom)]) for geom in geoms]
+        return poly
+    return None
+
+def reverse_line(line):
+    x = np.flip(np.array([point.longitude for point in line.points]))
+    y = np.flip(np.array([point.latitude for point in line.points]))
+    return LineOQ([PointOQ(xi, yi) for xi, yi in zip(x, y)])
+
+def plot_line(line, ax = None):
+    x = np.array([point.longitude for point in line.points])
+    y = np.array([point.latitude for point in line.points])
+    if ax == None:
+        fig, ax = plt.subplots()
+    ax.quiver(x[:-1], y[:-1], x[1:]-x[:-1], y[1:]-y[:-1], scale_units='xy', angles='xy', scale=1)
+    ax.set_xlim([x.min(), x.max()])
+    ax.set_ylim([y.min(), y.max()])
+    return ax
+
+def plot_megathrust(megathrust, ax = None):
+    xlim = []
+    ylim = []
+    if ax == None:
+        fig, ax = plt.subplots()
+    for line in megathrust:
+        x = np.array([point.longitude for point in line.points])
+        y = np.array([point.latitude for point in line.points])
+        ax.quiver(x[:-1], y[:-1], x[1:]-x[:-1], y[1:]-y[:-1], scale_units='xy', angles='xy', scale=1)
+        xlim += [x.min(), x.max()]
+        ylim += [y.min(), y.max()]
+    ax.set_xlim([min(xlim), max(xlim)])
+    ax.set_ylim([min(ylim), max(ylim)])
+    return ax
+
+def reverse_line3D(line):
+    x = np.flip(np.array([point.longitude for point in line.points]))
+    y = np.flip(np.array([point.latitude for point in line.points]))
+    z = np.flip(np.array([point.depth for point in line.points]))
+    return LineOQ([PointOQ(xi, yi, zi) for xi, yi, zi in zip(x, y, z)])
+
+def reverse_megathrust(megathrust, part_of=None):
+    new = megathrust
+    if part_of == 'both':
+        new[0] = reverse_line3D(megathrust[0])
+        new[1] = reverse_line3D(megathrust[1])
+        return new
+    if part_of == 'upper':
+        new[0] = reverse_line3D(megathrust[0])
+        return new
+    if part_of == 'lower':
+        new[1] = reverse_line3D(megathrust[1])
+        return new
+    return new
 
 # TO DO LIST
 # dict_catalogue = open_pkl('dict_catalogue_declustered.pkl')

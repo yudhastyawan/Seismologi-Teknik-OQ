@@ -1,0 +1,9 @@
+Lampung	upperSeismoDepth	0.
+Lampung	lowerSeismoDepth	20.
+Lampung	ruptAspectRatio	1.
+Lampung	nodalPlane	0.5	135.	90.	180.
+Lampung	nodalPlane	0.5	315.	90.	180.
+Lampung	hypoDepth	0.2	5.
+Lampung	hypoDepth	0.3	10.
+Lampung	hypoDepth	0.2	15.
+Lampung	hypoDepth	0.3	20.

@@ -1,0 +1,2 @@
+id	model	mfd	rup_set	background	scaling	sample
+0	Lampung	GR 1.0	set_1	BG_1	WC1994 Area m	1

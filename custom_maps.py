@@ -2,11 +2,20 @@ import os
 import pickle
 import pandas as pd
 import geopandas as gpd
-from shapely.geometry import Point, LineString, Polygon
+from shapely.geometry import Point, LineString, Polygon, MultiPolygon
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import glob
+import shutil
+import shapely
+
+# folder penyimpanan
+dir_figs = os.path.join(os.getcwd(), 'figs')
+os.makedirs(dir_figs, exist_ok=True)
+
+dir_json = os.path.join(os.getcwd(), 'json_output')
+os.makedirs(dir_json, exist_ok=True)
 
 def get_cmap(n, name='jet'):
     return plt.cm.get_cmap(name, n)
@@ -168,3 +177,63 @@ def geoms_to_shp(geoms, filename=None, dict_faults=None, range_deep=None, type_o
             for idx, geom in zip(dict_faults["individual"], geoms["individual"]):
                 poly = Polygon(geom)
                 polygon_to_shp(poly, "area_fault_"+dict_faults["name"][idx]+".shp")
+                
+def redistribute_vertices(geom, distance):
+    if geom.geom_type == 'LineString':
+        num_vert = int(round(geom.length / distance))
+        if num_vert == 0:
+            num_vert = 1
+        return LineString(
+            [geom.interpolate(float(n) / num_vert, normalized=True)
+             for n in range(num_vert + 1)])
+    elif geom.geom_type == 'MultiLineString':
+        parts = [redistribute_vertices(part, distance)
+                 for part in geom]
+        return type(geom)([p for p in parts if not p.is_empty])
+    else:
+        raise ValueError('unhandled geometry %s', (geom.geom_type,))
+        
+def save_faults_geojson(gdf, dict_faults, distance = None):
+    if dict_faults["merged"] != None:
+        for idcs in dict_faults["merged"]:
+            gdf_new = gdf.iloc[idcs]
+            if distance != None:
+                gdf_new.geometry = gdf_new.geometry.apply(redistribute_vertices,distance=0.005)
+            gdf_new.to_file(os.path.join(
+                dir_json, 
+                "json_fault_"+"_".join([dict_faults["name"][idcs[0]], "others"])+".geojson"
+            ), driver="GeoJSON")
+    if dict_faults["individual"] != None:
+        for idx in dict_faults["individual"]:
+            gdf.iloc[[idx]].to_file(os.path.join(
+                dir_json, 
+                "json_fault_"+dict_faults["name"][idx]+".geojson"
+            ), driver="GeoJSON")
+            
+def reverse_geom(geom):
+    def _reverse(x, y, z=None):
+        if z:
+            return x[::-1], y[::-1], z[::-1]
+        return x[::-1], y[::-1]
+
+    return shapely.ops.transform(_reverse, geom)
+
+def plot_line(line, ax = None):
+    x, y = line.coords.xy
+    x = np.array(x)
+    y = np.array(y)
+    if ax == None:
+        fig, ax = plt.subplots()
+    ax.quiver(x[:-1], y[:-1], x[1:]-x[:-1], y[1:]-y[:-1], scale_units='xy', angles='xy', scale=1)
+    xlim, ylim = (list(ax.get_xlim()) + [x.min(), x.max()], list(ax.get_ylim()) + [y.min(), y.max()])
+    ax.set_xlim([min(xlim), max(xlim)])
+    ax.set_ylim([min(ylim), max(ylim)])
+    return ax
+
+def save_area_fault_geojson(gdf_area_faults, model="Example"):
+    gdf_geology_area_faults = gpd.GeoDataFrame({ "id": [0], "model": [model] }, 
+                                               geometry=[MultiPolygon(gdf_area_faults.geometry.tolist())])
+    gdf_geology_area_faults.to_file(os.path.join(
+                                        dir_json, 
+                                        "json_area_fault_KumeringNorth_others.geojson"
+                                    ), driver="GeoJSON")

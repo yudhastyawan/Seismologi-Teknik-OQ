@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nrml
+xmlns="http://openquake.org/xmlns/nrml/0.5"
+xmlns:gml="http://www.opengis.net/gml"
+>
+    <sourceModel
+    name="Individual Faults"
+    >
+        <sourceGroup
+        rup_interdep="indep"
+        src_interdep="indep"
+        tectonicRegion="Active Shallow Crust"
+        >
+            <simpleFaultSource
+            id="101"
+            name="Enggano"
+            >
+                <simpleFaultGeometry>
+                    <gml:LineString>
+                        <gml:posList>
+                            102.1233 -4.9086 102.129 -4.9086 102.1728 -4.9181 102.2242 -4.9391 102.2813 -4.9657 102.308 -4.9905 102.3575 -5.0285 102.3955 -5.059 102.4431 -5.0971 102.504 -5.1351 102.5707 -5.1713 102.6468 -5.2227 102.7134 -5.2722 102.7591 -5.3122 102.7839 -5.3388 102.8067 -5.3617 102.8372 -5.4016 102.8657 -5.4283 102.8886 -5.4435 102.9095 -5.4568 102.9399 -5.4854 102.9894 -5.5292 103.0542 -5.5863 103.0979 -5.6281 103.1379 -5.6738 103.1855 -5.7157 103.2179 -5.7405 103.2445 -5.769 103.2636 -5.7938 103.294 -5.8185 103.3245 -5.8356 103.3473 -5.8604 103.3835 -5.8908 103.4235 -5.9213 103.4501 -5.9403 103.4882 -5.9613 103.5186 -5.9841 103.5529 -6.0184 103.591 -6.0641 103.6214 -6.1136 103.6462 -6.1573 103.6728 -6.203 103.6995 -6.2392 103.7299 -6.2658 103.7737 -6.2677 103.8156 -6.2677 103.8708 -6.2868 103.9089 -6.3134 103.9565 -6.3458 104.0193 -6.3877 104.0935 -6.4543 104.1354 -6.4962 104.1601 -6.5285 104.1792 -6.5685 104.1868 -6.599
+                        </gml:posList>
+                    </gml:LineString>
+                    <dip>
+                        45.0
+                    </dip>
+                    <upperSeismoDepth>
+                        0.0
+                    </upperSeismoDepth>
+                    <lowerSeismoDepth>
+                        20.0
+                    </lowerSeismoDepth>
+                </simpleFaultGeometry>
+                <magScaleRel>
+                    WC1994
+                </magScaleRel>
+                <ruptAspectRatio>
+                    1.0
+                </ruptAspectRatio>
+                <truncGutenbergRichterMFD aValue="5.03" bValue="1.26" maxMag="7.5" minMag="6.5"/>
+                <rake>
+                    -90.0
+                </rake>
+            </simpleFaultSource>
+        </sourceGroup>
+    </sourceModel>
+</nrml>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nrml
+xmlns="http://openquake.org/xmlns/nrml/0.5"
+xmlns:gml="http://www.opengis.net/gml"
+>
+    <sourceModel
+    name="Shallow Background"
+    >
+        <sourceGroup
+        rup_interdep="indep"
+        src_interdep="indep"
+        tectonicRegion="Stable Continental Crust"
+        >
+            <areaSource
+            id="104"
+            name="Shallow Background 1"
+            >
+                <areaGeometry>
+                    <gml:Polygon>
+                        <gml:exterior>
+                            <gml:LinearRing>
+                                <gml:posList>
+                                    100.5638739199901 -5.776918652608597 104.70984914775919 -2.815507775630686 107.20190433857456 -4.748806197204944 104.9668772616101 -9.062408455746354 100.5638739199901 -5.776918652608597
+                                </gml:posList>
+                            </gml:LinearRing>
+                        </gml:exterior>
+                    </gml:Polygon>
+                    <upperSeismoDepth>
+                        0.0
+                    </upperSeismoDepth>
+                    <lowerSeismoDepth>
+                        20
+                    </lowerSeismoDepth>
+                </areaGeometry>
+                <magScaleRel>
+                    WC1994
+                </magScaleRel>
+                <ruptAspectRatio>
+                    1.0
+                </ruptAspectRatio>
+                <truncGutenbergRichterMFD aValue="5.03" bValue="1.26" maxMag="6.5" minMag="3.0"/>
+                <nodalPlaneDist>
+                    <nodalPlane dip="90.0" probability="0.5" rake="0.0" strike="135.0"/>
+                    <nodalPlane dip="90.0" probability="0.5" rake="0.0" strike="315.0"/>
+                </nodalPlaneDist>
+                <hypoDepthDist>
+                    <hypoDepth depth="10.0" probability="0.5"/>
+                    <hypoDepth depth="20.0" probability="0.5"/>
+                </hypoDepthDist>
+            </areaSource>
+        </sourceGroup>
+    </sourceModel>
+</nrml>

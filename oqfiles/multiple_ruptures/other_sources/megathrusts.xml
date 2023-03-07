@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nrml
+xmlns="http://openquake.org/xmlns/nrml/0.5"
+xmlns:gml="http://www.opengis.net/gml"
+>
+    <sourceModel
+    name="Megathrusts"
+    >
+        <sourceGroup
+        rup_interdep="indep"
+        src_interdep="indep"
+        tectonicRegion="Subduction Interface"
+        >
+            <complexFaultSource
+            id="102"
+            name="Megathrust 1"
+            >
+                <complexFaultGeometry>
+                    <faultTopEdge>
+                        <gml:LineString>
+                            <gml:posList>
+                                102.4248 -7.0148 0.0 101.6114 -6.1638 0.0 100.7829 -5.147 0.0
+                            </gml:posList>
+                        </gml:LineString>
+                    </faultTopEdge>
+                    <faultBottomEdge>
+                        <gml:LineString>
+                            <gml:posList>
+                                103.6449 -5.8248 50.0 102.4775 -4.7478 50.0 102.101 -4.2281 50.0
+                            </gml:posList>
+                        </gml:LineString>
+                    </faultBottomEdge>
+                </complexFaultGeometry>
+                <magScaleRel>
+                    WC1994
+                </magScaleRel>
+                <ruptAspectRatio>
+                    1.0
+                </ruptAspectRatio>
+                <truncGutenbergRichterMFD aValue="5.03" bValue="1.26" maxMag="7.0" minMag="4.0"/>
+                <rake>
+                    -90.0
+                </rake>
+            </complexFaultSource>
+            <complexFaultSource
+            id="103"
+            name="Megathrust 2"
+            >
+                <complexFaultGeometry>
+                    <faultTopEdge>
+                        <gml:LineString>
+                            <gml:posList>
+                                105.499 -8.6944 0.0 105.3986 -8.4735 0.0 105.2781 -8.2927 0.0 105.1174 -8.132 0.0 104.786 -8.0015 0.0 104.3542 -7.891 0.0 103.9424 -7.7605 0.0 102.8981 -7.3186 0.0 102.4361 -7.0173 0.0
+                            </gml:posList>
+                        </gml:LineString>
+                    </faultTopEdge>
+                    <faultBottomEdge>
+                        <gml:LineString>
+                            <gml:posList>
+                                106.3124 -7.4592 50.0 105.8404 -7.2182 50.0 105.0571 -6.8265 50.0 104.2136 -6.224 50.0 103.6412 -5.8424 50.0
+                            </gml:posList>
+                        </gml:LineString>
+                    </faultBottomEdge>
+                </complexFaultGeometry>
+                <magScaleRel>
+                    WC1994
+                </magScaleRel>
+                <ruptAspectRatio>
+                    1.0
+                </ruptAspectRatio>
+                <truncGutenbergRichterMFD aValue="5.03" bValue="1.26" maxMag="7.0" minMag="4.0"/>
+                <rake>
+                    -90.0
+                </rake>
+            </complexFaultSource>
+        </sourceGroup>
+    </sourceModel>
+</nrml>

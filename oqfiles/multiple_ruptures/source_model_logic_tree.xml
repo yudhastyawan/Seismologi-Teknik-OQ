@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nrml xmlns:gml="http://www.opengis.net/gml"
+	xmlns="http://openquake.org/xmlns/nrml/0.5">
+	<logicTree logicTreeID="lt1">
+		<logicTreeBranchingLevel branchingLevelID="bl_1">
+			<logicTreeBranchSet uncertaintyType="sourceModel"
+							branchSetID="bs_1">
+				<logicTreeBranch branchID= "b_0">
+					<uncertaintyModel>
+							other_sources/individual_faults.xml
+							other_sources/megathrusts.xml
+							other_sources/shallow_background.xml
+							other_sources/deep_background.xml
+							ssm_1/Lampung_sections.xml
+							ssm_1/b_0/Source_model_1.xml
+							ssm_1/b_0/single_sec_rup.xml
+							ssm_1/b_0/bg_1.xml
+					</uncertaintyModel>
+					<uncertaintyWeight>1.0</uncertaintyWeight>
+				</logicTreeBranch>
+			</logicTreeBranchSet>
+		</logicTreeBranchingLevel>
+	</logicTree>
+</nrml>

@@ -1,0 +1,15 @@
+
+
+Running logic tree branch:
+Lampung-['WC1994', 'Area', 'm']-['GR', '1.0']-BG_1-set_1-set_1-1
+number of dsr to spend : 570000.0
+
+1%
+25%
+50%
+- target set - 
+75%
+-target filled-
+90%
+ratio between the target and the shape of the model : 1.0
+ratio of NMS : 21

@@ -1,0 +1,554 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nrml xmlns:gml="http://www.opengis.net/gml"
+	xmlns="http://openquake.org/xmlns/nrml/0.5">
+	<sourceModel name="Single Fault Rupture Sources">
+		<sourceGroup name="group 0" tectonicRegion="Active Shallow Crust">
+    <kiteFaultSource name="0" id="0" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.24981 -4.33236 0.00 103.24981 -4.33236 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.29517 -4.34422 0.00 103.29517 -4.34422 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.34580 -4.36196 0.00 103.34580 -4.36196 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.40852 -4.39130 0.00 103.40852 -4.39130 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.43360 -4.40651 0.00 103.43360 -4.40651 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.56475 -4.51219 0.00 103.56475 -4.51219 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.74527 -4.66658 0.00 103.74527 -4.66658 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.87837 -4.78554 0.00 103.87837 -4.78554 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						103.99512 -4.88060 0.00 103.99512 -4.88060 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.05473 -4.94663 0.00 104.05473 -4.94663 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.30503208164901086 0.28035117625604966 0.23065831446586485 0.17088863165503992 0.157273852293167 0.11324463184830157 0.08825553633167396 0.06438792527302992 0.059764587899436984 0.05521825051749725 0.03875307288986488 0.03642036102022101 0.028243264702811407 0.024738187614544903 0.0205313635721241 0.015498079769357707 0.012377895026646638 0.010663261915301913 0.00817898539133381 0.006924144722133264 0.005667174990636847 0.004648525584678058 0.00391850927249565 0.0030551089814772445 0.0025392333930067718 0.0020031928574847295 0.0018136175862966347 0.0014885534427935398 0.0012091355325869262 0.0010077928319557799 0.0008112761197991898 0.000799450885157737 0.0008778312002227105 0.0004928423396607156 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="1" id="1" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.00669 -4.92233 0.00 104.00669 -4.92233 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.08258 -4.98456 0.00 104.08258 -4.98456 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.16931 -5.05296 0.00 104.16931 -5.05296 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.21695 -5.09486 0.00 104.21695 -5.09486 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.23817 -5.12530 0.00 104.23817 -5.12530 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.28402 -5.20117 0.00 104.28402 -5.20117 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.32821 -5.23825 0.00 104.32821 -5.23825 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.33486 -5.29179 0.00 104.33486 -5.29179 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.35998 -5.34175 0.00 104.35998 -5.34175 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.23196321422907673 0.20527172455708723 0.17002586490253818 0.12551307268265285 0.09468310319509747 0.07218669635625251 0.0668005780674778 0.0604706989460491 0.04628600012221088 0.03652399202700146 0.029432975124790695 0.026743998979842004 0.022012260533092066 0.01734028934698669 0.014026406582755753 0.01206593136886186 0.009857958866425638 0.007289436974858993 0.006184531931715641 0.005058201063767324 0.004024561766874535 0.003253556834229842 0.0027334927511253925 0.0021882484065246584 0.0017239608097137705 0.0014292965878538674 0.0012053306490645407 0.0009967328454483918 0.0008046080179346806 0.000646811404903674 0.0005244754445913338 0.0 0.0 0.0 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="2" id="2" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.27982 -5.16915 0.00 104.27982 -5.16915 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.31275 -5.20291 0.00 104.31275 -5.20291 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.36980 -5.25537 0.00 104.36980 -5.25537 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.40508 -5.30641 0.00 104.40508 -5.30641 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.10314147238129377 0.09040394451215467 0.06252414314579127 0.04844610074928164 0.033803727719111894 0.030918420122138423 0.023125207286148988 0.022937459726976 0.020329086859418036 0.013909236449919976 0.011710768016998689 0.009434118346022287 0.007986590051947904 0.006326389402724256 0.005274614492385032 0.004253385565805197 0.003280998173225934 0.0029096901494612922 0.0023676143417807904 0.001977237743413337 0.0014901487009754471 0.0012844314270303618 0.0010033401868592337 0.0008016261275060797 0.0006815028902202948 0.0005722527927690458 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="3" id="3" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.35652 -5.27485 0.00 104.35652 -5.27485 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.42181 -5.33576 0.00 104.42181 -5.33576 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.45804 -5.36923 0.00 104.45804 -5.36923 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.49744 -5.40076 0.00 104.49744 -5.40076 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.53307 -5.43678 0.00 104.53307 -5.43678 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.57832 -5.46862 0.00 104.57832 -5.46862 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.62508 -5.49867 0.00 104.62508 -5.49867 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.67753 -5.53655 0.00 104.67753 -5.53655 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.74974 -5.59102 0.00 104.74974 -5.59102 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.79906 -5.62168 0.00 104.79906 -5.62168 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.88525 -5.67410 0.00 104.88525 -5.67410 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.94546 -5.72462 0.00 104.94546 -5.72462 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.01631 -5.78254 0.00 105.01631 -5.78254 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.06502 -5.81575 0.00 105.06502 -5.81575 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.16031 -5.88652 0.00 105.16031 -5.88652 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.40533711766728003 0.26052648099711534 0.18978467101313448 0.1740967283967905 0.13128915657033316 0.11475936935150294 0.08460057752581235 0.08175818270736797 0.06158201176712698 0.05145843024523111 0.04199543940750454 0.030208092593780267 0.029162307008253455 0.02214137088255472 0.01745420203469577 0.014755974138650476 0.012845711300798996 0.00971035931765194 0.008225878236141427 0.006735041892883962 0.0054453841728722115 0.004440277415255131 0.0034000859370239976 0.0028574571725994784 0.002328373001216662 0.0019518577035156938 0.0015805536467918247 0.0012624984492486072 0.0010425195216095871 0.0008331024563313968 0.000679853880528735 0.0006094154331962756 0.0007043753747818678 0.00044653759331256336 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="4" id="4" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.25787 -5.20948 0.00 104.25787 -5.20948 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.26022 -5.25913 0.00 104.26022 -5.25913 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.29164 -5.29161 0.00 104.29164 -5.29161 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.36480 -5.36033 0.00 104.36480 -5.36033 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.41879 -5.42275 0.00 104.41879 -5.42275 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.46953 -5.48611 0.00 104.46953 -5.48611 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.50165 -5.52651 0.00 104.50165 -5.52651 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.54393 -5.57666 0.00 104.54393 -5.57666 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.57570 -5.61310 0.00 104.57570 -5.61310 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.60928 -5.64739 0.00 104.60928 -5.64739 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.66645 -5.69291 0.00 104.66645 -5.69291 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.70160 -5.72241 0.00 104.70160 -5.72241 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.73550 -5.76797 0.00 104.73550 -5.76797 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.79002 -5.85161 0.00 104.79002 -5.85161 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.3041875460903388 0.21534829091681135 0.19885423660289403 0.16267682138926978 0.11516636991954478 0.09799464673962248 0.08380487563824648 0.058936399091656086 0.051459322849920094 0.04332265053702638 0.03527060098844009 0.03168088981687799 0.024384719578185464 0.019192169221665212 0.01677366063315824 0.01276731482667298 0.011197292350733913 0.00902046569776615 0.007837364451168992 0.006071513351054739 0.00488463479808831 0.003954293979588509 0.0032435335481449897 0.0027655059636176125 0.002164906280699067 0.001778014870443783 0.0014929477845489006 0.0011924798082878416 0.000955752612499022 0.0007573586998427985 0.0006228816016456283 0.000574894651661342 0.0006539856024406936 0.0 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="5" id="5" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.66574 -5.75236 0.00 104.66574 -5.75236 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.71881 -5.81862 0.00 104.71881 -5.81862 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.76541 -5.90554 0.00 104.76541 -5.90554 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.78913 -6.01455 0.00 104.78913 -6.01455 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.82767 -6.27945 0.00 104.82767 -6.27945 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.84003 -6.40718 0.00 104.84003 -6.40718 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						104.83890 -6.48883 0.00 104.83890 -6.48883 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.20428817393841614 0.17298278517437957 0.13651549967861573 0.10090934775794844 0.07345069516287393 0.06695775808301703 0.059505218966689394 0.043554484811791534 0.034119826871530104 0.02791243011280111 0.025713967357344186 0.01847312082180866 0.015109497021514385 0.013842794344235765 0.01037267212802607 0.009685934010763774 0.007000637186456476 0.0059947016200139844 0.004691493852525241 0.00393240151665197 0.0032365655792595924 0.0025522050271629274 0.0021059523406304105 0.0017310927544955587 0.0014358101643482182 0.0011254601890549657 0.001007554470300412 0.0008425293783264517 0.0006925061157628818 0.0005389246121779411 0.0004442309533113186 0.0004025526182966042 0.0 0.0 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> 180</rake>
+        </kiteFaultSource>
+    <kiteFaultSource name="6" id="6" tectonicRegion="Active Shallow Crust">
+			<kiteSurface>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.17460 -5.91349 0.00 105.07135 -5.89816 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.21418 -5.97665 0.00 105.11091 -5.96132 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.23972 -6.08248 0.00 105.13643 -6.06715 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.25289 -6.21604 0.00 105.14957 -6.20071 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.24354 -6.29532 0.00 105.14021 -6.27999 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.21887 -6.40258 0.00 105.11552 -6.38726 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.17906 -6.48897 0.00 105.07569 -6.47364 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.12250 -6.55313 0.00 105.01911 -6.53780 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			<profile>
+				<gml:LineString>
+					<gml:posList>
+						105.07078 -6.60503 0.00 104.96739 -6.58970 20.00
+					</gml:posList>
+				</gml:LineString>
+			</profile>
+			</kiteSurface>
+        <magScaleRel> WC1994 </magScaleRel>
+        <ruptAspectRatio> 1.0 </ruptAspectRatio>
+        <incrementalMFD minMag="4.0" binWidth="0.10">
+        <occurRates> 0.22234840496624292 0.18465476103045605 0.13072555963797164 0.10620102655716669 0.09988807030717863 0.06463229843182618 0.057060627061718744 0.04992314886913565 0.04127832874899419 0.030559810535187297 0.029882914236449943 0.02163411399950442 0.016264544925488577 0.013673369017724696 0.011514109966844568 0.00942576790527874 0.007541094809527009 0.006748677916084894 0.005212809870365378 0.004107140761562022 0.0036046097189718984 0.0029514490492572516 0.0023809196189801094 0.0018767238550173341 0.0015423577307645704 0.001226492910241587 0.0010900732999998375 0.0008643183330931291 0.0006879721458165852 0.000588467351618192 0.00046135974377725013 0.0004288532332644802 0.0 0.0 0.0 0.0 0.0</occurRates>
+        </incrementalMFD>
+        <rake> -90</rake>
+        </kiteFaultSource>
+        </sourceGroup>
+    </sourceModel>
+</nrml>

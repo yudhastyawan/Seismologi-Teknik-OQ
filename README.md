@@ -12,8 +12,9 @@ Install beberapa tambahan packages di openquake:
 jika tidak maka ubah lokasi tersebut sesuai dengan komputer masing-masing)
 
 1. Buka Command Prompt
-2. Install `jupyter`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install jupyter`
-3. Daftarkan ke dalam kernel (opsional): `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m ipykernel install --name "openquake" --display-name "openquake"`
+2. Install `geojson`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install geojson`
+3. Install `jupyter`: `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m pip install jupyter`
+4. Daftarkan ke dalam kernel (opsional): `"C:\Program Files\Openquake Engine\python3.6\python.exe" -m ipykernel install --name "openquake" --display-name "openquake"`
 
 
 Untuk uji coba, jalankan salah satu baris di bawah ini:
@@ -23,6 +24,10 @@ Untuk uji coba, jalankan salah satu baris di bawah ini:
 atau
 
 `"C:\Program Files\Openquake Engine\python3.6\Scripts\jupyter-notebook.exe"`
+
+atau
+
+`"C:\Program Files\Openquake Engine\python3.6\python.exe" -m notebook`
 
 ### Miniconda
 Miniconda dapat diunduh di sini:
@@ -70,6 +75,10 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 | OQ007_simpan_katalog_ke_shp.ipynb        | maps |
 | OQ008_visualisasi.ipynb        | maps |
 | OQ009_a_b_value.ipynb        | openquake |
+| OQ010_persiapan_file_SHERIFS.ipynb        | maps |
+| OQ008_jalankan_SHERIFS.ipynb        | openquake |
+| OQ009_membuat_source_model_xml.ipynb        | openquake |
+| OQ009_menjalankan_PSHA.ipynb        | none |
 | old/deprecated_OQ-processing        | openquake |
 | old/deprecated_OQ-visuals-geopandas | maps      |
 | old/deprecated_OQ-visual-pygmt      | pyGMT     |
