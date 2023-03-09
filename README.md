@@ -76,9 +76,9 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 | OQ008_visualisasi.ipynb        | maps |
 | OQ009_a_b_value.ipynb        | openquake |
 | OQ010_persiapan_file_SHERIFS.ipynb        | maps |
-| OQ008_jalankan_SHERIFS.ipynb        | openquake |
-| OQ009_membuat_source_model_xml.ipynb        | openquake |
-| OQ009_menjalankan_PSHA.ipynb        | none |
+| OQ011_jalankan_SHERIFS.ipynb        | openquake |
+| OQ012_membuat_source_model_xml.ipynb        | openquake |
+| OQ013_menjalankan_PSHA.ipynb        | none |
 | old/deprecated_OQ-processing        | openquake |
 | old/deprecated_OQ-visuals-geopandas | maps      |
 | old/deprecated_OQ-visual-pygmt      | pyGMT     |

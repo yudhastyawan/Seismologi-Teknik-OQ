@@ -230,10 +230,10 @@ def plot_line(line, ax = None):
     ax.set_ylim([min(ylim), max(ylim)])
     return ax
 
-def save_area_fault_geojson(gdf_area_faults, model="Example"):
+def save_area_fault_geojson(gdf_area_faults, filename, model="Example"):
     gdf_geology_area_faults = gpd.GeoDataFrame({ "id": [0], "model": [model] }, 
                                                geometry=[MultiPolygon(gdf_area_faults.geometry.tolist())])
     gdf_geology_area_faults.to_file(os.path.join(
                                         dir_json, 
-                                        "json_area_fault_KumeringNorth_others.geojson"
+                                        filename
                                     ), driver="GeoJSON")
