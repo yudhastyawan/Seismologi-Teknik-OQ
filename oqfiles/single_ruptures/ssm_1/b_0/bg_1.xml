@@ -6,9 +6,9 @@
 name="group 2"
 rup_interdep="indep"
 src_interdep="indep"
-tectonicRegion="Active Shallow Crust"
+tectonicRegion="Stable Continental Crust"
 >
-		<areaSource id="9" name="Background" tectonicRegion="Active Shallow Crust">
+		<areaSource id="9" name="Background" tectonicRegion="Stable Continental Crust">
 			<areaGeometry>
 				<gml:Polygon>
 					<gml:exterior>

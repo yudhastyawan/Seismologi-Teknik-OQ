@@ -5,22 +5,22 @@
 	<sourceGroup name="group 1" rup_interdep="indep"
         src_interdep="indep"  tectonicRegion="Active Shallow Crust">
         <multiFaultSource id="0" name="multifaultsource">
-				<multiPlanesRupture probs_occur="0.95986984 0.04013016">
+				<multiPlanesRupture probs_occur="0.96075116 0.03924884">
 					<magnitude>7.3</magnitude>
 					<sectionIndexes indexes="0,1"/>
 					<rake>180.0</rake>
 				</multiPlanesRupture>
-				<multiPlanesRupture probs_occur="0.93532402 0.06467598">
+				<multiPlanesRupture probs_occur="0.93655512 0.06344488">
 					<magnitude>7.4</magnitude>
 					<sectionIndexes indexes="0,1"/>
 					<rake>180.0</rake>
 				</multiPlanesRupture>
-				<multiPlanesRupture probs_occur="0.94788849 0.05211151">
+				<multiPlanesRupture probs_occur="0.94890215 0.05109785">
 					<magnitude>7.5</magnitude>
 					<sectionIndexes indexes="0,1"/>
 					<rake>180.0</rake>
 				</multiPlanesRupture>
-				<multiPlanesRupture probs_occur="0.95814242 0.04185758">
+				<multiPlanesRupture probs_occur="0.95895347 0.04104653">
 					<magnitude>7.6</magnitude>
 					<sectionIndexes indexes="0,1"/>
 					<rake>180.0</rake>

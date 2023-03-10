@@ -296,7 +296,7 @@ def create_catalogue_from_area_faults(catalogue, area_faults, dict_faults=None):
             copy_cutPoly_cutDepth
             (
                 catalogue, selected_area, selected_depth
-            ) for selected_area, selected_depth in zip(area_faults["individual"], dict_faults["merged_depth"])
+            ) for selected_area, selected_depth in zip(area_faults["individual"], dict_faults["individual_depth"])
         ]
     return catalogue_area_faults
 

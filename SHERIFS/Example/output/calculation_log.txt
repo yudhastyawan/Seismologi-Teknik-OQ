@@ -12,4 +12,4 @@ number of dsr to spend : 570000.0
 -target filled-
 90%
 ratio between the target and the shape of the model : 1.0
-ratio of NMS : 21
+ratio of NMS : 20
