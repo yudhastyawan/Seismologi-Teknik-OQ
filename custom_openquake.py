@@ -342,9 +342,15 @@ def create_catalogue_from_deep_backgrounds(catalogue, deep_background_geoms,
                                            upper_depth=50, increment=100, lower_depth=350):
     range_list = list(range(upper_depth, lower_depth, increment)) + [lower_depth]
     
-    poly_background = [
-        PolyOQ([PointOQ(lon, lat) for lon, lat in zip(*geom)]) for geom in deep_background_geoms
-    ]
+#     poly_background = [
+#         PolyOQ([PointOQ(lon, lat) for lon, lat in zip(*geom)]) for geom in deep_background_geoms if Polygon(np.array(geom).T).is_valid else Polygon(np.array(geom).T).buffer(0).exterior.xy
+#     ]
+    
+    poly_background = []
+    for i, geom in enumerate(deep_background_geoms):
+        if Polygon(np.array(geom).T).is_valid == False:
+            geom = Polygon(np.array(geom).T).buffer(0).exterior.xy
+        poly_background.append(PolyOQ([PointOQ(lon, lat) for lon, lat in zip(*geom)]))
     
     catalogue_backgrounds = [
         [
@@ -424,6 +430,8 @@ def quick_map(var, color, label=None, ax=None):
                 quick_map(item, color, label=(label if i == 0 else None), ax=ax)
         elif isinstance(var[0][0], array.array):
             for i, item in enumerate(var):
+                if Polygon(np.array(item).T).is_valid == False:
+                    item = Polygon(np.array(item).T).buffer(0).exterior.xy
                 quick_map(PolyOQ([PointOQ(x, y) for x, y in zip(*item)]), color, label=(label if i == 0 else None), ax=ax)
         elif isinstance(var[0][0], Catalogue):
             for i, item in enumerate(var):
