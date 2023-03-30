@@ -11,8 +11,7 @@
 							other_sources/megathrusts.xml
 							other_sources/shallow_background.xml
 							other_sources/deep_background.xml
-							ssm_1/Lampung_sections.xml
-							ssm_1/b_0/single_sec_rup.xml
+							other_sources/merge_faults_1.xml
 							ssm_1/b_0/bg_1.xml
 					</uncertaintyModel>
 					<uncertaintyWeight>1.0</uncertaintyWeight>
