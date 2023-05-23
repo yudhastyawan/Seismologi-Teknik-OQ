@@ -428,6 +428,8 @@ class Sources_Logic_Tree_Creator:
                             dip = self.dip
                             upper_sismo_depth = self.upper_sismo_depth
                             lower_sismo_depth = self.lower_sismo_depth
+                            # print(upper_sismo_depth, type(upper_sismo_depth), 
+                            #     lower_sismo_depth, type(lower_sismo_depth))
                             width = (lower_sismo_depth - upper_sismo_depth) / math.sin(math.radians(dip)) * 1000. #m
                             length = geom_scenar.length[index_fault] * 1000. #m
                             area = length * width  #m2

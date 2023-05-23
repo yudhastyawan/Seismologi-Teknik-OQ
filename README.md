@@ -6,6 +6,9 @@ Kumpulan script files untuk menjalankan HMTK Openquake dan pyGMT (atau Geopandas
 Openquake dapat diunduh di sini:
 https://downloads.openquake.org/pkgs/windows/oq-engine/OpenQuake_Engine_3.11.5-1.exe
 
+atau cek Openquake terbaru di link berikut ini:
+https://downloads.openquake.org/pkgs/windows/oq-engine/
+
 Install beberapa tambahan packages di openquake:
 
 (Asumsi lokasi instalasi openquake di sini: `C:\Program Files\Openquake Engine\python3.6\`, 
@@ -79,6 +82,8 @@ Notebook sebelum direvisi dapat dilihat di folder **old**.
 | OQ011_jalankan_SHERIFS.ipynb        | openquake |
 | OQ012_membuat_source_model_xml.ipynb        | openquake |
 | OQ013_menjalankan_PSHA.ipynb        | none |
+| OQ_Opt_001_membuat_source_model_xml_untuk_SHERIFS.ipynb        | openquake |
+| OQ_Opt_002_menggabungkan_hazard_curves_dari_berbagai_sumber.ipynb        | openquake |
 | old/deprecated_OQ-processing        | openquake |
 | old/deprecated_OQ-visuals-geopandas | maps      |
 | old/deprecated_OQ-visual-pygmt      | pyGMT     |
