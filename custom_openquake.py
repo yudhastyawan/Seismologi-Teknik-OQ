@@ -23,6 +23,7 @@ from openquake.hazardlib.geo.nodalplane import NodalPlane
 from openquake.hazardlib.tom import PoissonTOM
 from openquake.hmtk.sources.source_model import mtkSourceModel
 from openquake.hazardlib.sourcewriter import write_source_model
+from openquake.hmtk.seismicity.occurrence.utils import recurrence_table
 from shapely.geometry import *
 from shapely.ops import *
 import os
@@ -377,6 +378,42 @@ def b_a_value(catalogue, mle_config, completeness_table):
                                                          mle_config, 
                                                          completeness = completeness_table)
     return b_val, sigma_b, a_val, sigma_a
+
+def extract_recurrence_table_Mc(catalogue, dmag, m_c, ctime):
+    """
+    [Magnitude, Number of Observations, Cumulative Number
+    of Observations >= M, Number of Observations
+    (normalised to annual value), Cumulative Number of
+    Observations (normalised to annual value)]
+    """
+    end_year = float(catalogue.end_year)
+    catalogue = catalogue.data
+    mag_eq_tolerance = 1E-5
+    id1 = np.logical_and(
+                catalogue['year'] >= ctime,
+                catalogue['magnitude'] >= (m_c - mag_eq_tolerance))
+    return recurrence_table(catalogue['magnitude'][id1],
+                              dmag,
+                              catalogue['year'][id1],
+                              end_year - ctime + 1)
+
+def extract_recurrence_table(catalogue, dmag):
+    """
+    [Magnitude, Number of Observations, Cumulative Number
+    of Observations >= M, Number of Observations
+    (normalised to annual value), Cumulative Number of
+    Observations (normalised to annual value)]
+    """
+    catalogue = catalogue.data
+    return recurrence_table(catalogue['magnitude'],
+                              dmag,
+                              catalogue['year'])
+
+def r_squared(y, y_hat):
+    y_bar = y.mean()
+    ss_tot = ((y-y_bar)**2).sum()
+    ss_res = ((y-y_hat)**2).sum()
+    return 1 - (ss_res/ss_tot)
 
 def plot_magnitude_time_density_with_Mc(catalogue, completeness_table, magnitude_bin_width, time_bin_width, cmap_dist='Pastel1', cmap_Mc='Dark2'):
     plt.set_cmap(cmap_dist)
