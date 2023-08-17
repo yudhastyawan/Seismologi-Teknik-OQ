@@ -104,9 +104,15 @@ def catalogue_from_pkl(filename):
                 catalogue.data[key] = np.array(catalogue.data[key])
     return catalogue
 
+def catalogue_from_csv(filename):
+    parser = CsvCatalogueParser(filename)
+    return parser.read_file()
+
 def catalogue_pkl_to_csv(filename_pkl, filename_csv):
     catalogue = catalogue_from_pkl(filename_pkl)
-    catalogue.write_catalogue(filename_csv, key_list=list(catalogue.data.keys()))
+    key_list = ['eventID','year','month','day','hour','minute','second','longitude',
+            'latitude','depth','magnitude','sigmaMagnitude']
+    catalogue.write_catalogue(filename_csv, key_list=key_list)
             
 # save variabel ke pickle file untuk dibuka kembali di file lain
 def variable_to_pkl(variabel, filename, protocol=False):
